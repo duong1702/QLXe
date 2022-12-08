@@ -1,0 +1,59 @@
+﻿@model IEnumerable<QLXEKHACH.Models.tChuyen>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<center>
+    <h2 style="padding:5px";>THÔNG TIN CHUYẾN XE</h2>
+    <table class="table">
+        <tr>
+            <th>
+               Mã chuyến
+            </th>
+            <th>
+                Số xe
+            </th>
+            <th>
+                Mã tài xế
+            </th>
+            <th>
+                Số lượng khách
+            </th>
+            <th>
+                Giờ xuất bến
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="padding:10px";>
+                    @Html.DisplayFor(modelItem => item.MaChuyen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoXe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaTaiXe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuongKhach)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GioXuatBen)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuyen }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.MaChuyen }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.MaChuyen })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p>
+        @Html.ActionLink("Tạo mới", "Create")
+    </p>
+</center>

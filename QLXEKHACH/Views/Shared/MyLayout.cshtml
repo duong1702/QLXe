@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Assets/CSS/Style.css" rel="stylesheet" />
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    @Styles.Render("~/Assets/CSS/Style.css")
+</head>
+<body>
+        <div id="header">
+            <div class="container">
+                <div class="logo">
+                    <a href="#">XE KHÁCH</a>
+                </div>
+                <div class="contact-info">
+                    <ul>
+                        <li>
+                            <div class="contact-text">
+                                <label>Email</label>
+                                <span>duongbt41@gmail.com</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-text">
+                                <label>Điện Thoại</label>
+                                <span>0916216723</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="register">Đăng Kí</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- start menu -->
+        <div id="nav">
+            <div class="container">
+                <ul class="menu">
+                    <li>@Html.ActionLink("TRANG CHỦ","../Home/Index")</li>
+                    <li>@Html.ActionLink("XE", "../DSXe/Index")</li>
+                    <li>@Html.ActionLink("TÀI XẾ","../TaiXe/Index")</li>
+                    <li>@Html.ActionLink("CHUYẾN","../Chuyen/Index")</li>
+                    <li>@Html.ActionLink("BẢO TRÌ","../BaoTri/Index")</li>
+                    <li>@Html.ActionLink("NHIÊN LIỆU","../NhienLieu/Index")</li>
+                    <li>@Html.ActionLink("PHIẾU NHIÊN LIỆU","../PhieuNhienLieu/Index")</li>
+                </ul>
+                <div class="form-search">
+                    <input type="text" class="keyword" placeholder="Your keyword" />
+                    <button type="submit" class="btn-search">
+                        <!--<span class="ion-ios-search"></span>-->
+
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- end menu -->
+        <div id="banner">
+            <img src="~/Assets/Img/banner (2).jpg" />
+            <!-- <div class="overlay"></div>-->
+        </div>
+        <div>
+            <div id="layoutContent">
+                <div class="rightContent">
+                    <div>@RenderBody()</div>
+                </div>
+            </div>
+        </div>
+    <div>Footer</div>
+</body>
+</html>

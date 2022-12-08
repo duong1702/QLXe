@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3b5fd3da52d24dce9163bd1719ff52ef" Name="Diagram1">
+        <EntityTypeShape EntityType="ql_xekhachModel.sysdiagram" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ql_xekhachModel.tBaoTri" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ql_xekhachModel.tChuyen" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ql_xekhachModel.tNhienLieu" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ql_xekhachModel.tPhieuNhienLieu" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ql_xekhachModel.tTaiXe" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ql_xekhachModel.tXe" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="ql_xekhachModel.fk_tBaoTri_SoXe" ManuallyRouted="false" />
+        <AssociationConnector Association="ql_xekhachModel.fk_tChuyen_MaTaiXe" ManuallyRouted="false" />
+        <AssociationConnector Association="ql_xekhachModel.fk_tChuyen_SoXe" ManuallyRouted="false" />
+        <AssociationConnector Association="ql_xekhachModel.fk_tPhieuNhienLieu_MaNhienLieu" ManuallyRouted="false" />
+        <AssociationConnector Association="ql_xekhachModel.fk_tPhieuNhienLieu_SoXe" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

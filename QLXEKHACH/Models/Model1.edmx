@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ql_xekhachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tBaoTri">
+          <Key>
+            <PropertyRef Name="SoThuTu" />
+          </Key>
+          <Property Name="SoThuTu" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SoXe" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NgayBaoTri" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ThanhTien" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tChuyen">
+          <Key>
+            <PropertyRef Name="MaChuyen" />
+          </Key>
+          <Property Name="MaChuyen" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SoXe" Type="nvarchar" MaxLength="200" />
+          <Property Name="MaTaiXe" Type="nvarchar" MaxLength="200" />
+          <Property Name="SoLuongKhach" Type="nvarchar" MaxLength="200" />
+          <Property Name="GioXuatBen" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tNhienLieu">
+          <Key>
+            <PropertyRef Name="MaNhienLieu" />
+          </Key>
+          <Property Name="MaNhienLieu" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TenNhienLieu" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DonGia" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tPhieuNhienLieu">
+          <Key>
+            <PropertyRef Name="SoPhieu" />
+          </Key>
+          <Property Name="SoPhieu" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NgayLapPhieu" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MaNhienLieu" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SoLuong" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SoXe" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tTaiXe">
+          <Key>
+            <PropertyRef Name="MaTaiXe" />
+          </Key>
+          <Property Name="MaTaiXe" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TenTaiXe" Type="nvarchar" MaxLength="200" />
+          <Property Name="LoaiBangLaiXe" Type="nvarchar" MaxLength="200" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="20" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tXe">
+          <Key>
+            <PropertyRef Name="SoXe" />
+          </Key>
+          <Property Name="SoXe" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="HangSanXuat" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NamSanXuat" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SoLuongChoNgoi" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="fk_tBaoTri_SoXe">
+          <End Role="tXe" Type="Self.tXe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tBaoTri" Type="Self.tBaoTri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tXe">
+              <PropertyRef Name="SoXe" />
+            </Principal>
+            <Dependent Role="tBaoTri">
+              <PropertyRef Name="SoXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tChuyen_MaTaiXe">
+          <End Role="tTaiXe" Type="Self.tTaiXe" Multiplicity="0..1" />
+          <End Role="tChuyen" Type="Self.tChuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tTaiXe">
+              <PropertyRef Name="MaTaiXe" />
+            </Principal>
+            <Dependent Role="tChuyen">
+              <PropertyRef Name="MaTaiXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tChuyen_SoXe">
+          <End Role="tXe" Type="Self.tXe" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tChuyen" Type="Self.tChuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tXe">
+              <PropertyRef Name="SoXe" />
+            </Principal>
+            <Dependent Role="tChuyen">
+              <PropertyRef Name="SoXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tPhieuNhienLieu_MaNhienLieu">
+          <End Role="tNhienLieu" Type="Self.tNhienLieu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tPhieuNhienLieu" Type="Self.tPhieuNhienLieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tNhienLieu">
+              <PropertyRef Name="MaNhienLieu" />
+            </Principal>
+            <Dependent Role="tPhieuNhienLieu">
+              <PropertyRef Name="MaNhienLieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tPhieuNhienLieu_SoXe">
+          <End Role="tXe" Type="Self.tXe" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tPhieuNhienLieu" Type="Self.tPhieuNhienLieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tXe">
+              <PropertyRef Name="SoXe" />
+            </Principal>
+            <Dependent Role="tPhieuNhienLieu">
+              <PropertyRef Name="SoXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ql_xekhachModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tBaoTri" EntityType="Self.tBaoTri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tChuyen" EntityType="Self.tChuyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tNhienLieu" EntityType="Self.tNhienLieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tPhieuNhienLieu" EntityType="Self.tPhieuNhienLieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tTaiXe" EntityType="Self.tTaiXe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tXe" EntityType="Self.tXe" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_tBaoTri_SoXe" Association="Self.fk_tBaoTri_SoXe">
+            <End Role="tXe" EntitySet="tXe" />
+            <End Role="tBaoTri" EntitySet="tBaoTri" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tChuyen_MaTaiXe" Association="Self.fk_tChuyen_MaTaiXe">
+            <End Role="tTaiXe" EntitySet="tTaiXe" />
+            <End Role="tChuyen" EntitySet="tChuyen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tChuyen_SoXe" Association="Self.fk_tChuyen_SoXe">
+            <End Role="tXe" EntitySet="tXe" />
+            <End Role="tChuyen" EntitySet="tChuyen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tPhieuNhienLieu_MaNhienLieu" Association="Self.fk_tPhieuNhienLieu_MaNhienLieu">
+            <End Role="tNhienLieu" EntitySet="tNhienLieu" />
+            <End Role="tPhieuNhienLieu" EntitySet="tPhieuNhienLieu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tPhieuNhienLieu_SoXe" Association="Self.fk_tPhieuNhienLieu_SoXe">
+            <End Role="tXe" EntitySet="tXe" />
+            <End Role="tPhieuNhienLieu" EntitySet="tPhieuNhienLieu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ql_xekhachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tBaoTri">
+          <Key>
+            <PropertyRef Name="SoThuTu" />
+          </Key>
+          <Property Name="SoThuTu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgayBaoTri" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThanhTien" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tXe" Relationship="Self.fk_tBaoTri_SoXe" FromRole="tBaoTri" ToRole="tXe" />
+        </EntityType>
+        <EntityType Name="tChuyen">
+          <Key>
+            <PropertyRef Name="MaChuyen" />
+          </Key>
+          <Property Name="MaChuyen" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MaTaiXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoLuongKhach" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GioXuatBen" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tTaiXe" Relationship="Self.fk_tChuyen_MaTaiXe" FromRole="tChuyen" ToRole="tTaiXe" />
+          <NavigationProperty Name="tXe" Relationship="Self.fk_tChuyen_SoXe" FromRole="tChuyen" ToRole="tXe" />
+        </EntityType>
+        <EntityType Name="tNhienLieu">
+          <Key>
+            <PropertyRef Name="MaNhienLieu" />
+          </Key>
+          <Property Name="MaNhienLieu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenNhienLieu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DonGia" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tPhieuNhienLieux" Relationship="Self.fk_tPhieuNhienLieu_MaNhienLieu" FromRole="tNhienLieu" ToRole="tPhieuNhienLieu" />
+        </EntityType>
+        <EntityType Name="tPhieuNhienLieu">
+          <Key>
+            <PropertyRef Name="SoPhieu" />
+          </Key>
+          <Property Name="SoPhieu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgayLapPhieu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaNhienLieu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoLuong" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tNhienLieu" Relationship="Self.fk_tPhieuNhienLieu_MaNhienLieu" FromRole="tPhieuNhienLieu" ToRole="tNhienLieu" />
+          <NavigationProperty Name="tXe" Relationship="Self.fk_tPhieuNhienLieu_SoXe" FromRole="tPhieuNhienLieu" ToRole="tXe" />
+        </EntityType>
+        <EntityType Name="tTaiXe">
+          <Key>
+            <PropertyRef Name="MaTaiXe" />
+          </Key>
+          <Property Name="MaTaiXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenTaiXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiBangLaiXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tChuyens" Relationship="Self.fk_tChuyen_MaTaiXe" FromRole="tTaiXe" ToRole="tChuyen" />
+        </EntityType>
+        <EntityType Name="tXe">
+          <Key>
+            <PropertyRef Name="SoXe" />
+          </Key>
+          <Property Name="SoXe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HangSanXuat" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NamSanXuat" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoLuongChoNgoi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tBaoTris" Relationship="Self.fk_tBaoTri_SoXe" FromRole="tXe" ToRole="tBaoTri" />
+          <NavigationProperty Name="tChuyens" Relationship="Self.fk_tChuyen_SoXe" FromRole="tXe" ToRole="tChuyen" />
+          <NavigationProperty Name="tPhieuNhienLieux" Relationship="Self.fk_tPhieuNhienLieu_SoXe" FromRole="tXe" ToRole="tPhieuNhienLieu" />
+        </EntityType>
+        <Association Name="fk_tBaoTri_SoXe">
+          <End Role="tXe" Type="Self.tXe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tBaoTri" Type="Self.tBaoTri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tXe">
+              <PropertyRef Name="SoXe" />
+            </Principal>
+            <Dependent Role="tBaoTri">
+              <PropertyRef Name="SoXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tChuyen_MaTaiXe">
+          <End Role="tTaiXe" Type="Self.tTaiXe" Multiplicity="0..1" />
+          <End Role="tChuyen" Type="Self.tChuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tTaiXe">
+              <PropertyRef Name="MaTaiXe" />
+            </Principal>
+            <Dependent Role="tChuyen">
+              <PropertyRef Name="MaTaiXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tChuyen_SoXe">
+          <End Role="tXe" Type="Self.tXe" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tChuyen" Type="Self.tChuyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tXe">
+              <PropertyRef Name="SoXe" />
+            </Principal>
+            <Dependent Role="tChuyen">
+              <PropertyRef Name="SoXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tPhieuNhienLieu_MaNhienLieu">
+          <End Role="tNhienLieu" Type="Self.tNhienLieu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tPhieuNhienLieu" Type="Self.tPhieuNhienLieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tNhienLieu">
+              <PropertyRef Name="MaNhienLieu" />
+            </Principal>
+            <Dependent Role="tPhieuNhienLieu">
+              <PropertyRef Name="MaNhienLieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tPhieuNhienLieu_SoXe">
+          <End Role="tXe" Type="Self.tXe" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tPhieuNhienLieu" Type="Self.tPhieuNhienLieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tXe">
+              <PropertyRef Name="SoXe" />
+            </Principal>
+            <Dependent Role="tPhieuNhienLieu">
+              <PropertyRef Name="SoXe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ql_xekhachEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tBaoTris" EntityType="Self.tBaoTri" />
+          <EntitySet Name="tChuyens" EntityType="Self.tChuyen" />
+          <EntitySet Name="tNhienLieux" EntityType="Self.tNhienLieu" />
+          <EntitySet Name="tPhieuNhienLieux" EntityType="Self.tPhieuNhienLieu" />
+          <EntitySet Name="tTaiXes" EntityType="Self.tTaiXe" />
+          <EntitySet Name="tXes" EntityType="Self.tXe" />
+          <AssociationSet Name="fk_tBaoTri_SoXe" Association="Self.fk_tBaoTri_SoXe">
+            <End Role="tXe" EntitySet="tXes" />
+            <End Role="tBaoTri" EntitySet="tBaoTris" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tChuyen_MaTaiXe" Association="Self.fk_tChuyen_MaTaiXe">
+            <End Role="tTaiXe" EntitySet="tTaiXes" />
+            <End Role="tChuyen" EntitySet="tChuyens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tChuyen_SoXe" Association="Self.fk_tChuyen_SoXe">
+            <End Role="tXe" EntitySet="tXes" />
+            <End Role="tChuyen" EntitySet="tChuyens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tPhieuNhienLieu_MaNhienLieu" Association="Self.fk_tPhieuNhienLieu_MaNhienLieu">
+            <End Role="tNhienLieu" EntitySet="tNhienLieux" />
+            <End Role="tPhieuNhienLieu" EntitySet="tPhieuNhienLieux" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tPhieuNhienLieu_SoXe" Association="Self.fk_tPhieuNhienLieu_SoXe">
+            <End Role="tXe" EntitySet="tXes" />
+            <End Role="tPhieuNhienLieu" EntitySet="tPhieuNhienLieux" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ql_xekhachModelStoreContainer" CdmEntityContainer="ql_xekhachEntities1">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ql_xekhachModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tBaoTris">
+            <EntityTypeMapping TypeName="ql_xekhachModel.tBaoTri">
+              <MappingFragment StoreEntitySet="tBaoTri">
+                <ScalarProperty Name="SoThuTu" ColumnName="SoThuTu" />
+                <ScalarProperty Name="SoXe" ColumnName="SoXe" />
+                <ScalarProperty Name="NgayBaoTri" ColumnName="NgayBaoTri" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tChuyens">
+            <EntityTypeMapping TypeName="ql_xekhachModel.tChuyen">
+              <MappingFragment StoreEntitySet="tChuyen">
+                <ScalarProperty Name="MaChuyen" ColumnName="MaChuyen" />
+                <ScalarProperty Name="SoXe" ColumnName="SoXe" />
+                <ScalarProperty Name="MaTaiXe" ColumnName="MaTaiXe" />
+                <ScalarProperty Name="SoLuongKhach" ColumnName="SoLuongKhach" />
+                <ScalarProperty Name="GioXuatBen" ColumnName="GioXuatBen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tNhienLieux">
+            <EntityTypeMapping TypeName="ql_xekhachModel.tNhienLieu">
+              <MappingFragment StoreEntitySet="tNhienLieu">
+                <ScalarProperty Name="MaNhienLieu" ColumnName="MaNhienLieu" />
+                <ScalarProperty Name="TenNhienLieu" ColumnName="TenNhienLieu" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tPhieuNhienLieux">
+            <EntityTypeMapping TypeName="ql_xekhachModel.tPhieuNhienLieu">
+              <MappingFragment StoreEntitySet="tPhieuNhienLieu">
+                <ScalarProperty Name="SoPhieu" ColumnName="SoPhieu" />
+                <ScalarProperty Name="NgayLapPhieu" ColumnName="NgayLapPhieu" />
+                <ScalarProperty Name="MaNhienLieu" ColumnName="MaNhienLieu" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="SoXe" ColumnName="SoXe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tTaiXes">
+            <EntityTypeMapping TypeName="ql_xekhachModel.tTaiXe">
+              <MappingFragment StoreEntitySet="tTaiXe">
+                <ScalarProperty Name="MaTaiXe" ColumnName="MaTaiXe" />
+                <ScalarProperty Name="TenTaiXe" ColumnName="TenTaiXe" />
+                <ScalarProperty Name="LoaiBangLaiXe" ColumnName="LoaiBangLaiXe" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tXes">
+            <EntityTypeMapping TypeName="ql_xekhachModel.tXe">
+              <MappingFragment StoreEntitySet="tXe">
+                <ScalarProperty Name="SoXe" ColumnName="SoXe" />
+                <ScalarProperty Name="HangSanXuat" ColumnName="HangSanXuat" />
+                <ScalarProperty Name="NamSanXuat" ColumnName="NamSanXuat" />
+                <ScalarProperty Name="SoLuongChoNgoi" ColumnName="SoLuongChoNgoi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

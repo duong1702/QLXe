@@ -1,0 +1,57 @@
+﻿@model QLXEKHACH.Models.tBaoTri
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<center>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h2>TẠO MỚI THÔNG TIN BẢO TRÌ</h2>
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <label class="control-label col-md-4">Số Thứ tự</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoThuTu)
+                        @Html.ValidationMessageFor(model => model.SoThuTu, "")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">Số Xe</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoXe)
+                        @Html.ValidationMessageFor(model => model.SoXe, "")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">Ngày Bảo Trì</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NgayBaoTri)
+                        @Html.ValidationMessageFor(model => model.NgayBaoTri, "")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">Thành Tiền</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ThanhTien)
+                        @Html.ValidationMessageFor(model => model.ThanhTien, "")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Tạo Mới" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div>
+                @Html.ActionLink("Quay lại", "Index")
+            </div>
+        </center>
